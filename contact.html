@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Say hello to Ruoqi - drop a note, ask a question, or just say hi." />
+  <title>Ruoqi - Contact Me</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- ===== Header / Navigation ===== -->
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a href="index.html" class="nav-brand">Ruoqi<span>.</span></a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="resume.html">Resume</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="contact.html">Contact Me</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ===== Main content ===== -->
+  <main class="site-main">
+    <div class="container">
+
+      <!-- Page header -->
+      <header class="page-header">
+        <h1>Say Hello</h1>
+        <p>
+          Whether you've got a project, a question, or just want to share a good
+          coffee shop recommendation - I'd love to hear from you.
+        </p>
+      </header>
+
+      <!-- Contact layout -->
+      <section class="contact-layout" aria-label="Contact details and form">
+
+        <!-- Contact info -->
+        <aside class="contact-info" aria-label="Ways to reach me">
+          <h2>Let's be in touch</h2>
+          <p style="color: var(--color-text-muted);">
+            I usually reply within a day or two. Mornings are my favorite time to
+            catch up on email - coffee in hand, of course.
+          </p>
+          <ul>
+            <li>
+              <span class="icon" aria-hidden="true">&#9993;</span>
+              <span><strong>Email:</strong><br /><a href="mailto:hello@ruoqi.example">hello@ruoqi.example</a></span>
+            </li>
+            <li>
+              <span class="icon" aria-hidden="true">&#128205;</span>
+              <span><strong>Based in:</strong><br />Lanzhou, Gansu, China (CST, UTC+8)</span>
+            </li>
+            <li>
+              <span class="icon" aria-hidden="true">&#128483;</span>
+              <span><strong>Social:</strong><br /><a href="projects.html">GitHub</a> &middot; <a href="resume.html">LinkedIn</a></span>
+            </li>
+            <li>
+              <span class="icon" aria-hidden="true">&#127800;</span>
+              <span><strong>Best for:</strong><br />Teaching ideas, friendly projects &amp; dog photos</span>
+            </li>
+          </ul>
+        </aside>
+
+        <!-- Contact form -->
+        <div class="contact-form">
+          <h2>Drop me a note</h2>
+          <p style="color: var(--color-text-muted); margin-bottom: var(--space-3);">
+            Fill in a few details and I'll get back to you soon.
+          </p>
+          <form id="contact-form" novalidate>
+            <div class="form-group">
+              <label for="name">Your name</label>
+              <input type="text" id="name" name="name" placeholder="e.g. Jamie Rivera" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Your email</label>
+              <input type="email" id="email" name="email" placeholder="you@example.com" required />
+            </div>
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <input type="text" id="subject" name="subject" placeholder="What's on your mind?" />
+            </div>
+            <div class="form-group">
+              <label for="message">Your message</label>
+              <textarea id="message" name="message" placeholder="Say hi, share an idea, ask a question..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send message</button>
+            <p class="form-note">
+              This is a demo form - your message stays right here on this page.
+              For a real reply, email me directly. &#128522;
+            </p>
+            <div class="form-status" role="status" aria-live="polite"></div>
+          </form>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ===== Footer with a fun fact ===== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-funfact">
+        <strong>Fun fact:</strong> I keep a folder of nice emails people have sent me. It's basically my emotional support inbox. &#128140;
+      </div>
+      <div class="footer-social" aria-label="Social links">
+        <a href="contact.html" aria-label="Email"> &#9993; </a>
+        <a href="projects.html" aria-label="GitHub"> &#128187; </a>
+        <a href="resume.html" aria-label="Resume"> &#128196; </a>
+      </div>
+      <p class="footer-copy">&copy; 2026 Ruoqi. Made with warmth and a lot of snacks.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

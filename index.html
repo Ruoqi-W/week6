@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Hi, I'm Ruoqi - a friendly developer who loves building things people enjoy using." />
+  <title>Ruoqi - Home</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- ===== Header / Navigation ===== -->
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a href="index.html" class="nav-brand">Ruoqi<span>.</span></a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="resume.html">Resume</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="contact.html">Contact Me</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ===== Main content ===== -->
+  <main class="site-main">
+    <div class="container">
+
+      <!-- Hero: headshot + name + intro -->
+      <section class="hero" aria-label="Introduction">
+        <div class="hero-photo">
+          <img
+            src="ruoqi-headshot.jpg"
+            alt="A headshot of Ruoqi smiling warmly"
+            loading="eager"
+            width="300" height="300" />
+        </div>
+        <div class="hero-content">
+          <span class="tagline">Nice to meet you! &#128075;</span>
+          <h1>Hi, I'm Ruoqi</h1>
+          <p>
+            I'm from Lanzhou, in Gansu Province on the northwest side of China.
+            I've been a teacher, and some of my favorite moments have been spent
+            with children of all different ages - watching them light up when
+            something finally clicks. These days, when I'm not teaching or building
+            little things on the web, you'll find me hanging out with my very cute
+            dog (he just turned three!), hunting for a good bowl of noodles, or
+            just enjoying a slow afternoon.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="projects.html">See my work</a>
+            <a class="btn btn-outline" href="contact.html">Say hello</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- A little more about me -->
+      <section class="section" aria-label="About me">
+        <h2 class="section-title">A little more about me</h2>
+        <div class="intro">
+          <p>
+            I come from Lanzhou, Gansu Province, in the beautiful northwest of China.
+            Being a teacher has shaped how I see the world - I've worked with
+            children of all different ages, and I've learned that patience, curiosity,
+            and a little warmth go a long way. Those same ideas guide how I build
+            things too.
+          </p>
+          <p>
+            At home, there's a very cute three-year-old dog who keeps me company and
+            keeps me honest about taking breaks. I care a lot about warmth - in
+            teaching, in code, in conversations - and I try to bring a little of
+            that into everything I make. I'm always up for a friendly project, a new
+            idea, or a good chat about almost anything.
+          </p>
+        </div>
+      </section>
+
+      <!-- Three things I like -->
+      <section class="section" aria-label="Things I like">
+        <h2 class="section-title">Three things I like</h2>
+        <div class="likes-grid">
+          <article class="card like-card">
+            <img class="like-photo" src="ruoqi-teaching.jpg" alt="Ruoqi teaching kids" loading="lazy" />
+            <h3>Teaching Kids</h3>
+            <p>
+              There's nothing like watching a child's eyes light up when a new idea
+              clicks. I've taught kids of all different ages, and every age has its
+              own kind of magic.
+            </p>
+          </article>
+          <article class="card like-card">
+            <img class="like-photo" src="ruoqi-dog.jpg" alt="Ruoqi's cute three-year-old dog" loading="lazy" />
+            <h3>My Cute Dog</h3>
+            <p>
+              He's three years old, full of energy, and the best coworker I could
+              ask for. Walks with him are how I think through half of my ideas.
+            </p>
+          </article>
+          <article class="card like-card">
+            <img class="like-photo" src="ruoqi-noodles.jpg" alt="A bowl of Lanzhou beef noodle soup" loading="lazy" />
+            <h3>Lanzhou Noodles</h3>
+            <p>
+              I grew up in Lanzhou, and a steaming bowl of beef noodle soup will
+              always feel like home. Wherever I go, I'm chasing that same cozy
+              feeling.
+            </p>
+          </article>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ===== Footer with fun facts ===== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-funfacts">
+        <h2 class="footer-funfacts-title">Fun Facts About Me &#127881;</h2>
+        <div class="footer-funfact">
+          <strong>Fun fact:</strong> My three-year-old dog has very strong opinions about which walking route we take. He's usually right. &#128054;
+          <img class="footer-concert-photo" src="ruoqi-dog-walking.jpg" alt="Ruoqi's dog out on a walk" loading="lazy" />
+        </div>
+        <div class="footer-funfact">
+          <strong>Fun fact:</strong> I went to watch the concert of my favorite rapper and picked up so many interesting souvenirs! Throughout the entire concert, I really, really enjoyed it - singing along, soaking in the lights, the bass, the whole energy. It's a night I'll remember for a long time. &#127911;
+          <img class="footer-concert-photo" src="ruoqi-concert.jpg" alt="Ruoqi at a concert with collected souvenirs" loading="lazy" />
+        </div>
+      </div>
+      <div class="footer-social" aria-label="Social links">
+        <a href="contact.html" aria-label="Email"> &#9993; </a>
+        <a href="projects.html" aria-label="GitHub"> &#128187; </a>
+        <a href="resume.html" aria-label="Resume"> &#128196; </a>
+      </div>
+      <p class="footer-copy">&copy; 2026 Ruoqi. Made with warmth and a lot of snacks.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

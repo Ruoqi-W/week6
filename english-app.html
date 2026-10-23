@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A cute picture-word quiz that helps young children learn English words." />
+  <title>Let's learning English</title>
+  <style>
+    :root {
+      --pink: #FF9FB2;
+      --pink-dark: #F4768D;
+      --sky: #8ED8F8;
+      --sun: #FFD166;
+      --mint: #9FE3C2;
+      --grape: #C6A8F5;
+      --ink: #4A3F55;
+      --card: #FFFFFF;
+      --wrong: #E85D75;
+      --right: #3BB273;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      min-height: 100%;
+    }
+
+    body {
+      font-family: 'Comic Sans MS', 'Chalkboard SE', 'Baloo 2', 'Trebuchet MS', system-ui, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 18%, rgba(255, 209, 102, 0.35), transparent 26%),
+        radial-gradient(circle at 88% 12%, rgba(142, 216, 248, 0.35), transparent 28%),
+        radial-gradient(circle at 82% 88%, rgba(198, 168, 245, 0.30), transparent 30%),
+        radial-gradient(circle at 10% 90%, rgba(159, 227, 194, 0.32), transparent 28%),
+        linear-gradient(160deg, #FFF9F3 0%, #FFF1F7 45%, #EFFAFF 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+      overflow-x: hidden;
+    }
+
+    /* ----- Screens ----- */
+    .screen {
+      display: none;
+      width: min(680px, 100%);
+    }
+
+    .screen.is-active {
+      display: block;
+      animation: pop-in 0.35s ease both;
+    }
+
+    /* ----- Home screen ----- */
+    .home {
+      position: relative;
+    }
+
+    .floaties {
+      position: absolute;
+      inset: -40px -10px;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .floaty {
+      position: absolute;
+      font-size: clamp(1.6rem, 5vw, 2.4rem);
+      opacity: 0.65;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .f1 { top: 4%;  left: 4%;  animation-delay: 0s; }
+    .f2 { top: 12%; right: 6%; animation-delay: 0.7s; }
+    .f3 { bottom: 8%; left: 8%; animation-delay: 1.2s; }
+    .f4 { bottom: 4%; right: 10%; animation-delay: 1.8s; }
+    .f5 { top: 44%; right: -2%; font-size: 1.4rem; animation-delay: 2.2s; }
+
+    .home-card {
+      position: relative;
+      z-index: 1;
+      background: var(--card);
+      border: 4px solid #FFE3EA;
+      border-radius: 40px;
+      box-shadow: 0 18px 40px rgba(244, 118, 141, 0.18);
+      padding: clamp(28px, 6vw, 48px) clamp(20px, 5vw, 40px);
+      text-align: center;
+    }
+
+    .kicker {
+      display: inline-block;
+      background: #FFF3D6;
+      color: #B07818;
+      font-size: clamp(0.75rem, 2.6vw, 0.9rem);
+      font-weight: bold;
+      padding: 8px 18px;
+      border-radius: 999px;
+      margin-bottom: 18px;
+    }
+
+    .home-card h1 {
+      font-size: clamp(2rem, 8vw, 3.4rem);
+      line-height: 1.15;
+      color: var(--pink-dark);
+      text-shadow: 3px 4px 0 #FFE1E8;
+      margin-bottom: 14px;
+      letter-spacing: 0.5px;
+    }
+
+    .subtitle {
+      font-size: clamp(1rem, 3.4vw, 1.2rem);
+      color: #8A7E96;
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+
+    .start-btn {
+      font-family: inherit;
+      font-size: clamp(1.4rem, 5vw, 1.8rem);
+      font-weight: bold;
+      color: #FFFFFF;
+      background: linear-gradient(180deg, var(--pink) 0%, var(--pink-dark) 100%);
+      border: none;
+      border-radius: 999px;
+      padding: 16px 64px;
+      cursor: pointer;
+      box-shadow: 0 8px 0 #D95A73, 0 16px 30px rgba(244, 118, 141, 0.4);
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+      animation: gentle-bounce 2.2s ease-in-out infinite;
+    }
+
+    .start-btn:hover {
+      transform: translateY(-2px) scale(1.03);
+    }
+
+    .start-btn:active {
+      transform: translateY(4px);
+      box-shadow: 0 4px 0 #D95A73, 0 8px 18px rgba(244, 118, 141, 0.35);
+    }
+
+    .hint {
+      margin-top: 20px;
+      font-size: 0.85rem;
+      color: #B3A9BE;
+    }
+
+    /* ----- Quiz screen ----- */
+    .quiz-card {
+      background: var(--card);
+      border: 4px solid #DFF3FC;
+      border-radius: 40px;
+      box-shadow: 0 18px 40px rgba(142, 216, 248, 0.22);
+      padding: clamp(18px, 4vw, 30px);
+    }
+
+    .quiz-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .progress {
+      font-size: clamp(0.85rem, 3vw, 1rem);
+      font-weight: bold;
+      color: #7C93A8;
+      background: #EFF9FE;
+      padding: 6px 16px;
+      border-radius: 999px;
+    }
+
+    .dots {
+      display: flex;
+      gap: 8px;
+    }
+
+    .dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #E4EEF5;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .dot.done {
+      background: var(--sun);
+      transform: scale(1.1);
+    }
+
+    .dot.current {
+      background: var(--sky);
+      transform: scale(1.2);
+      box-shadow: 0 0 0 4px rgba(142, 216, 248, 0.25);
+    }
+
+    .picture-frame {
+      background: #FFF9EE;
+      border: 4px dashed #FFE0B8;
+      border-radius: 30px;
+      padding: 12px;
+      margin-bottom: 16px;
+    }
+
+    .picture-frame img {
+      display: block;
+      width: 100%;
+      max-height: 42vh;
+      object-fit: contain;
+      border-radius: 22px;
+    }
+
+    .feedback {
+      min-height: 30px;
+      text-align: center;
+      font-size: clamp(1rem, 3.4vw, 1.15rem);
+      font-weight: bold;
+      color: #8A7E96;
+      margin-bottom: 12px;
+    }
+
+    .feedback.good { color: var(--right); }
+    .feedback.try  { color: var(--pink-dark); }
+
+    .options {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .option {
+      position: relative;
+      font-family: inherit;
+      font-size: clamp(1.2rem, 4.6vw, 1.55rem);
+      font-weight: bold;
+      color: var(--ink);
+      background: #FFFFFF;
+      border: 3px solid #FFDCE4;
+      border-radius: 22px;
+      padding: 16px 44px 16px 16px;
+      cursor: pointer;
+      box-shadow: 0 5px 0 #F5E0E6;
+      transition: transform 0.12s ease, box-shadow 0.12s ease,
+                  border-color 0.18s ease, background 0.18s ease, color 0.18s ease;
+      text-align: center;
+    }
+
+    .option:hover {
+      border-color: var(--pink);
+      transform: translateY(-2px);
+      box-shadow: 0 7px 0 #F2D6DE;
+    }
+
+    .option:active {
+      transform: translateY(3px);
+      box-shadow: 0 2px 0 #F5E0E6;
+    }
+
+    .option.wrong {
+      border-color: var(--wrong);
+      background: #FFF0F3;
+      color: var(--wrong);
+      box-shadow: 0 5px 0 #F6C9D2;
+    }
+
+    .option.correct {
+      border-color: var(--right);
+      background: #EDFBF4;
+      color: var(--right);
+      box-shadow: 0 5px 0 #BDE8D4;
+      animation: pop-in 0.35s ease both;
+    }
+
+    .mark {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.5rem;
+      line-height: 1;
+    }
+
+    /* ----- Back to home button ----- */
+    .back-btn {
+      display: block;
+      margin: 18px auto 0;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: bold;
+      color: #8A7E96;
+      background: #FFFFFF;
+      border: 3px solid #FFE3EA;
+      border-radius: 999px;
+      padding: 9px 20px;
+      cursor: pointer;
+      box-shadow: 0 4px 0 #F5E0E6;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, color 0.2s ease;
+    }
+
+    .back-btn:hover {
+      color: var(--pink-dark);
+      transform: translateY(-2px);
+    }
+
+    .back-btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 #F5E0E6;
+    }
+
+    /* ----- Victory screen ----- */
+    .victory-card {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(170deg, #FFFFFF 0%, #FFF8E9 100%);
+      border: 4px solid #FFE7B0;
+      border-radius: 40px;
+      box-shadow: 0 20px 50px rgba(255, 209, 102, 0.3);
+      padding: clamp(32px, 7vw, 52px) clamp(20px, 5vw, 40px);
+      text-align: center;
+    }
+
+    .trophy {
+      font-size: clamp(3.4rem, 12vw, 4.8rem);
+      margin-bottom: 12px;
+      animation: gentle-bounce 1.5s ease-in-out infinite;
+    }
+
+    .victory-card h2 {
+      font-size: clamp(1.8rem, 7vw, 2.6rem);
+      color: var(--pink-dark);
+      text-shadow: 2px 3px 0 #FFE1E8;
+      margin-bottom: 14px;
+    }
+
+    .victory-card p {
+      font-size: clamp(1rem, 3.6vw, 1.2rem);
+      color: #8A7E96;
+      line-height: 1.7;
+      margin-bottom: 22px;
+    }
+
+    .victory-card strong {
+      color: var(--right);
+    }
+
+    .word-row {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: clamp(1.6rem, 6vw, 2.2rem);
+    }
+
+    .confetti {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .confetti span {
+      position: absolute;
+      font-size: 1.3rem;
+      opacity: 0.8;
+      animation: float 3.4s ease-in-out infinite;
+    }
+
+    .c1 { top: 8%;  left: 8%;  animation-delay: 0s; }
+    .c2 { top: 14%; right: 10%; animation-delay: 0.5s; }
+    .c3 { bottom: 12%; left: 12%; animation-delay: 1s; }
+    .c4 { bottom: 8%; right: 8%; animation-delay: 1.5s; }
+
+    /* ----- Animations ----- */
+    @keyframes pop-in {
+      0%   { opacity: 0; transform: scale(0.94); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes gentle-bounce {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-7px); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(-4deg); }
+      50%      { transform: translateY(-14px) rotate(4deg); }
+    }
+
+    /* ----- Small screens ----- */
+    @media (max-width: 480px) {
+      body {
+        padding: 14px 10px;
+        align-items: flex-start;
+      }
+
+      .home-card,
+      .quiz-card,
+      .victory-card {
+        border-radius: 30px;
+      }
+
+      .options {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .option {
+        padding: 14px 40px 14px 14px;
+      }
+
+      .start-btn {
+        padding: 14px 48px;
+        width: 100%;
+      }
+
+      .picture-frame img {
+        max-height: 34vh;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app" id="app">
+    <!-- Home screen -->
+    <section class="screen home is-active" id="screen-home" aria-label="Home">
+      <div class="floaties" aria-hidden="true">
+        <span class="floaty f1">&#11088;</span>
+        <span class="floaty f2">&#127752;</span>
+        <span class="floaty f3">&#127822;</span>
+        <span class="floaty f4">&#128054;</span>
+        <span class="floaty f5">&#128065;</span>
+      </div>
+
+      <div class="home-card">
+        <p class="kicker">&#11088; A fun word quiz for little learners &#11088;</p>
+        <h1>Let's learning English</h1>
+        <p class="subtitle">Look at the picture, then tap the word that matches!</p>
+        <button class="start-btn" id="start-btn" type="button">Start</button>
+        <p class="hint">For ages 3&ndash;6</p>
+      </div>
+    </section>
+
+    <!-- Quiz screen -->
+    <section class="screen quiz" id="screen-quiz" aria-label="Question">
+      <div class="quiz-card">
+        <div class="quiz-top">
+          <span class="progress" id="progress">Question 1 of 3</span>
+          <div class="dots" id="dots" aria-hidden="true"></div>
+        </div>
+
+        <div class="picture-frame">
+          <img id="question-image" src="1.jpg" alt="Picture for the word" />
+        </div>
+
+        <p class="feedback" id="feedback" aria-live="polite"></p>
+        <div class="options" id="options"></div>
+
+        <button class="back-btn" data-back type="button">&#8592; Back to Home</button>
+      </div>
+    </section>
+
+    <!-- Victory screen (only shown after question 3 is answered correctly) -->
+    <section class="screen victory" id="screen-victory" aria-label="Victory">
+      <div class="victory-card">
+        <div class="confetti" aria-hidden="true">
+          <span class="c1">&#127881;</span>
+          <span class="c2">&#11088;</span>
+          <span class="c3">&#127881;</span>
+          <span class="c4">&#11088;</span>
+        </div>
+        <div class="trophy" aria-hidden="true">&#127881;</div>
+        <h2>Hooray! You did it!</h2>
+        <p>You matched all three words! Great job, little learner!</p>
+        <div class="word-row" aria-hidden="true">
+          <span>&#127822;</span>
+          <span>&#128054;</span>
+          <span>&#128065;</span>
+        </div>
+
+        <button class="back-btn" data-back type="button">&#8592; Back to Home</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var questions = [
+        {
+          image: '1.jpg',
+          answer: 'apple',
+          options: ['apple', 'banana', 'pear', 'grape']
+        },
+        {
+          image: '2.jpg',
+          answer: 'dog',
+          options: ['dog', 'cat', 'mouse', 'bird']
+        },
+        {
+          image: '3.jpg',
+          answer: 'eye',
+          options: ['eye', 'hand', 'foot', 'nose']
+        }
+      ];
+
+      var startBtn = document.getElementById('start-btn');
+      var homeScreen = document.getElementById('screen-home');
+      var quizScreen = document.getElementById('screen-quiz');
+      var victoryScreen = document.getElementById('screen-victory');
+      var imageEl = document.getElementById('question-image');
+      var optionsEl = document.getElementById('options');
+      var feedbackEl = document.getElementById('feedback');
+      var progressEl = document.getElementById('progress');
+      var dotsEl = document.getElementById('dots');
+      var backButtons = document.querySelectorAll('[data-back]');
+
+      var currentIndex = 0;
+      var locked = false;
+      var advanceTimer = null;
+
+      function goHome() {
+        if (advanceTimer) {
+          clearTimeout(advanceTimer);
+          advanceTimer = null;
+        }
+        currentIndex = 0;
+        locked = false;
+        optionsEl.innerHTML = '';
+        feedbackEl.textContent = '';
+        feedbackEl.className = 'feedback';
+        showScreen(homeScreen);
+      }
+
+      function showScreen(screen) {
+        homeScreen.classList.remove('is-active');
+        quizScreen.classList.remove('is-active');
+        victoryScreen.classList.remove('is-active');
+        screen.classList.add('is-active');
+      }
+
+      function shuffle(items) {
+        for (var i = items.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var tmp = items[i];
+          items[i] = items[j];
+          items[j] = tmp;
+        }
+        return items;
+      }
+
+      function updateDots() {
+        dotsEl.innerHTML = '';
+        for (var i = 0; i < questions.length; i++) {
+          var dot = document.createElement('span');
+          dot.className = 'dot';
+          if (i < currentIndex) dot.className += ' done';
+          if (i === currentIndex) dot.className += ' current';
+          dotsEl.appendChild(dot);
+        }
+      }
+
+      function renderQuestion() {
+        var question = questions[currentIndex];
+        locked = false;
+        feedbackEl.textContent = '';
+        feedbackEl.className = 'feedback';
+        progressEl.textContent = 'Question ' + (currentIndex + 1) + ' of ' + questions.length;
+        updateDots();
+
+        imageEl.src = question.image;
+        imageEl.alt = 'Picture for question ' + (currentIndex + 1);
+
+        optionsEl.innerHTML = '';
+        var words = shuffle(question.options.slice());
+        words.forEach(function (word) {
+          var button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'option';
+          button.setAttribute('data-word', word);
+          button.textContent = word;
+          button.addEventListener('click', function () {
+            handleAnswer(button, question);
+          });
+          optionsEl.appendChild(button);
+        });
+      }
+
+      function handleAnswer(button, question) {
+        if (locked) return;
+
+        if (button.getAttribute('data-word') === question.answer) {
+          locked = true;
+          button.classList.add('correct');
+          var check = document.createElement('span');
+          check.className = 'mark';
+          check.textContent = '\u2713';
+          button.appendChild(check);
+
+          feedbackEl.textContent = 'Yes! ' + question.answer + '! Great job!';
+          feedbackEl.className = 'feedback good';
+
+          advanceTimer = setTimeout(function () {
+            advanceTimer = null;
+            currentIndex += 1;
+            if (currentIndex < questions.length) {
+              renderQuestion();
+            } else {
+              showScreen(victoryScreen);
+            }
+          }, 1000);
+        } else {
+          if (!button.classList.contains('wrong')) {
+            button.classList.add('wrong');
+            var cross = document.createElement('span');
+            cross.className = 'mark';
+            cross.textContent = '\u2717';
+            button.appendChild(cross);
+          }
+          feedbackEl.textContent = 'Oops! Try again.';
+          feedbackEl.className = 'feedback try';
+        }
+      }
+
+      startBtn.addEventListener('click', function () {
+        currentIndex = 0;
+        renderQuestion();
+        showScreen(quizScreen);
+      });
+
+      backButtons.forEach(function (button) {
+        button.addEventListener('click', goHome);
+      });
+    })();
+  </script>
+</body>
+</html>

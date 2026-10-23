@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Ruoqi Wang's resume - clinical psychology, teaching, and applied psychology experience." />
+  <title>Ruoqi - Resume</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ===== Resume page visual enhancements (scoped to this page) ===== */
+
+    /* Hero page header */
+    .page-header {
+      position: relative;
+      background: linear-gradient(135deg, rgba(126, 200, 227, 0.18), rgba(255, 182, 193, 0.16));
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5) var(--space-3) var(--space-4);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+    .page-header::before,
+    .page-header::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .page-header::before {
+      top: -42px; right: -34px;
+      width: 160px; height: 160px;
+      background: radial-gradient(circle, rgba(255, 182, 193, 0.28), transparent 70%);
+    }
+    .page-header::after {
+      bottom: -52px; left: -28px;
+      width: 150px; height: 150px;
+      background: radial-gradient(circle, rgba(126, 200, 227, 0.24), transparent 70%);
+    }
+    .page-header h1 {
+      position: relative;
+      background: linear-gradient(135deg, var(--color-primary-dark), var(--color-accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .page-header p { position: relative; }
+    .page-header .btn { margin-top: var(--space-2); position: relative; }
+
+    /* Section cards: top accent bar + hover lift */
+    .resume-section {
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .resume-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+    }
+    .resume-section:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Section headings: block + gradient underline */
+    .resume-section h2 {
+      display: block;
+    }
+    .resume-section h2::after {
+      content: '';
+      display: block;
+      width: 52px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+      border-radius: var(--radius-full);
+      margin-top: 0.4rem;
+    }
+
+    /* Timeline items as mini-cards */
+    .timeline-item {
+      background: linear-gradient(135deg, rgba(240, 249, 255, 0.6), rgba(255, 255, 255, 0.92));
+      border: 1px solid var(--color-border);
+      border-left: 4px solid var(--color-secondary);
+      border-radius: var(--radius-md);
+      padding: var(--space-2) var(--space-3);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-left-color 0.25s ease;
+    }
+    .timeline-item:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+      border-left-color: var(--color-accent);
+    }
+    .timeline-item h3 { color: var(--color-text); }
+    .timeline-item .meta {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      background: rgba(126, 200, 227, 0.10);
+      padding: 0.25rem 0.8rem;
+      border-radius: var(--radius-full);
+    }
+    .timeline-item p {
+      color: var(--color-text-muted);
+      font-size: 0.92rem;
+      line-height: 1.65;
+      margin-top: 0.3rem;
+    }
+
+    /* Skill chips: hover lift + gradient fill */
+    .skills-list li {
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
+      cursor: default;
+    }
+    .skills-list li:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+      color: #fff;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* CTA banner */
+    .resume-cta {
+      background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+      border: none;
+      text-align: center;
+    }
+    .resume-cta::before { display: none; }
+    .resume-cta h2,
+    .resume-cta p { color: #fff; }
+    .resume-cta h2 { justify-content: center; }
+    .resume-cta h2::after { background: rgba(255, 255, 255, 0.7); margin-left: auto; margin-right: auto; }
+    .resume-cta .btn-primary {
+      background: #fff;
+      color: var(--color-primary-dark);
+    }
+    .resume-cta .btn-primary:hover { color: var(--color-primary-dark); }
+
+    @media (max-width: 600px) {
+      .page-header { padding: var(--space-4) var(--space-2) var(--space-3); }
+    }
+  </style>
+</head>
+<body>
+  <!-- ===== Header / Navigation ===== -->
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a href="index.html" class="nav-brand">Ruoqi<span>.</span></a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="resume.html">Resume</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="contact.html">Contact Me</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ===== Main content ===== -->
+  <main class="site-main">
+    <div class="container">
+
+      <!-- Page header -->
+      <header class="page-header">
+        <h1>Ruoqi Wang</h1>
+        <p>
+          Lanzhou, Gansu, China &middot; <a href="mailto:ruoqiw2026@outlook.com">ruoqiw2026@outlook.com</a>
+        </p>
+        <a class="btn btn-primary" href="resume.pdf" download>Download PDF</a>
+      </header>
+
+      <!-- Summary -->
+      <section class="resume-section" aria-label="Professional summary">
+        <h2>&#128172; Summary</h2>
+        <p>
+          I am a graduate student majoring in digital education at Xi'an Jiaotong – Liverpool University.
+        </p>
+      </section>
+
+      <!-- Experience -->
+      <section class="resume-section" aria-label="Experience">
+        <h2>&#128188; Experience</h2>
+        <div class="timeline">
+
+          <div class="timeline-item">
+            <h3>Volunteer Behavior Support</h3>
+            <span class="meta">ALSO·IN Applied Behavior Intervention Center &middot; Xi'an, China &middot; Feb 2025 – May 2026</span>
+            <ul class="resume-bullets">
+              <li>Supported therapists using Applied Behavior Analysis (ABA) to work with autistic children — observing and documenting behavior cues during individualized learning and play interventions.</li>
+              <li>Prepared visual aids, reinforcement tools, and sensory-regulation materials; led classroom routines including social practice and visual-schedule guidance.</li>
+              <li>Applied insights from a DSM‑5 clinical assessment project to better understand behavior and tailor individualized support strategies.</li>
+            </ul>
+          </div>
+
+          <div class="timeline-item">
+            <h3>Full-time English Teacher</h3>
+            <span class="meta">Jiuzhou Primary School &middot; Lanzhou, China &middot; Feb 2024 – Jan 2025</span>
+            <ul class="resume-bullets">
+              <li>Designed and delivered structured English lesson plans tailored to local students' language levels and learning needs.</li>
+              <li>Built engaging classroom activities that fostered interest and confidence in English learning, emphasizing interest-driven study and fair treatment of every student.</li>
+              <li>Created a supportive classroom environment and continuously refined teaching through reflective practice.</li>
+            </ul>
+          </div>
+
+          <div class="timeline-item">
+            <h3>High School English Teacher (Internship &amp; Outreach)</h3>
+            <span class="meta">Shanshan No. 1 Middle School &middot; Turpan, Xinjiang, China &middot; Mar 2022 – Jun 2022</span>
+            <ul class="resume-bullets">
+              <li>Partnered with the host school to support classroom teaching and campus activities as part of a rural outreach internship program.</li>
+              <li>Proactively sought feedback from mentoring teachers and incorporated it into lesson practice.</li>
+              <li>Applied diverse teaching strategies with a focus on balancing explanation and practice. Earned consistent praise from students and colleagues for fairness, patience, and care.</li>
+              <li>Awarded "Outstanding Student Teacher" at the end of the internship.</li>
+            </ul>
+          </div>
+
+          <div class="timeline-item">
+            <h3>English Teaching Assistant (Internship)</h3>
+            <span class="meta">Greens Kids English School &middot; Zhangye, Gansu, China &middot; Sep 2020 – Nov 2020</span>
+            <ul class="resume-bullets">
+              <li>Assisted lead teachers in preparing lessons and instructional materials for young learners.</li>
+              <li>Supported classroom delivery and maintained detailed classroom observation records.</li>
+              <li>Provided after-school academic follow-up with differentiated tutoring based on each student's level.</li>
+              <li>Helped improve classroom organization and student engagement.</li>
+            </ul>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Education -->
+      <section class="resume-section" aria-label="Education">
+        <h2>&#127891; Education</h2>
+        <div class="timeline">
+          <div class="timeline-item">
+            <h3>Master's Degree in Digital Education</h3>
+            <span class="meta">Xi'an Jiaotong – Liverpool University &middot; 2026 – 2028</span>
+          </div>
+
+          <div class="timeline-item">
+            <h3>Bachelor's Degree in English</h3>
+            <span class="meta">Hexi University &middot; Zhangye, Gansu, China &middot; 2019 – 2023</span>
+            <p>
+              Core coursework: Educational Psychology, Developmental Psychology, Research Methods in the Social Sciences,
+              Learning Theory, Communication Theory, Interpersonal Communication, Social Psychology, Cognitive Psychology.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Skills -->
+      <section class="resume-section" aria-label="Skills">
+        <h2>&#129518; Skills</h2>
+        <h3 style="color: var(--color-primary);">Languages</h3>
+        <ul class="skills-list">
+          <li>Chinese (Mandarin)</li>
+          <li>English</li>
+          <li>Japanese</li>
+        </ul>
+
+        <h3 style="margin-top: var(--space-3); color: var(--color-primary);">Tools &amp; Technologies</h3>
+        <ul class="skills-list">
+          <li>Microsoft PowerPoint</li>
+          <li>Microsoft Excel</li>
+          <li>Microsoft Word</li>
+          <li>Data Organization</li>
+          <li>Visualization &amp; Reporting</li>
+          <li>Lesson Design</li>
+        </ul>
+
+        <h3 style="margin-top: var(--space-3); color: var(--color-primary);">Certifications &amp; Awards</h3>
+        <ul class="resume-bullets" style="margin-top: var(--space-1);">
+          <li>Junior High School English Teacher Qualification Certificate</li>
+          <li>Putonghua Proficiency Test Certificate</li>
+          <li>CET‑4 (College English Test, Band 4)</li>
+          <li>Outstanding Youth Epidemic Prevention Volunteer (2021)</li>
+          <li>Outstanding Student Teacher — Shanshan No. 1 Middle School (2022)</li>
+        </ul>
+      </section>
+
+      <!-- Call to action -->
+      <section class="resume-section resume-cta">
+        <h2>Want to work together?</h2>
+        <p>
+          I'd love to hear from you about roles, projects, or just a friendly chat.
+        </p>
+        <a class="btn btn-primary" href="contact.html">Get in touch</a>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ===== Footer with a fun fact ===== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-funfact">
+        <strong>Fun fact:</strong> The best teachers I've ever had were under ten years old. They taught me how to ask better questions. &#127977;
+      </div>
+      <div class="footer-social" aria-label="Social links">
+        <a href="contact.html" aria-label="Email"> &#9993; </a>
+        <a href="projects.html" aria-label="GitHub"> &#128187; </a>
+        <a href="resume.html" aria-label="Resume"> &#128196; </a>
+      </div>
+      <p class="footer-copy">&copy; 2026 Ruoqi. Made with warmth and a lot of snacks.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
